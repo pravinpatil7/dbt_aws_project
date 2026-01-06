@@ -1,0 +1,15 @@
+version: 2
+models:
+  - name: bronze_bookings
+    config:
+      materialized: table
+      schema: bronze
+    columns:
+      - name: BOOKING_ID
+        data_tests:
+          - unique
+          - not_null
+      - name: NIGHTS_BOOKED
+        description: "Nights Booked Should be greater than 0"
+        data_tests:
+          - warn_if_zero
