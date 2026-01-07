@@ -1,1 +1,1 @@
-select * from {{ ref('silver_hosts') }}
+select count(1) from {{ ref("silver_bookings") }}

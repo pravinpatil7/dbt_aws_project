@@ -13,3 +13,10 @@ models:
         description: "Nights Booked Should be greater than 0"
         data_tests:
           - warn_if_zero
+      - name: BOOKING_STATUS
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['confirmed','cancelled']
+              config:
+                severity: warn

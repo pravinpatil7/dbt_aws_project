@@ -7,9 +7,11 @@ select * from {{source('staging','bookings')}}
 {% endif %} #}
 
 
-{{ config(materialized='incremental')}}
+{{ config(materialized='incremental',unique_key = 'BOOKING_ID')}}
 
-select * from {{source('staging','bookings')}}
+select *,
+row_number() over(partition by BOOKING_ID order by CREATED_AT desc) as ROW_NUM
+from {{source('staging','bookings')}}
 {% if is_incremental() %}
     where CREATED_AT > (select COALESCE(max(CREATED_AT),'1900-01-01') from {{ this }})
 {% endif %}
