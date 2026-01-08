@@ -7,6 +7,8 @@ select * from {{source('staging','bookings')}}
 {% endif %} #}
 
 
+{# Comment added to check where the changes happend at local repo or the remote one #}
+
 {{ config(materialized='incremental',unique_key = 'BOOKING_ID')}}
 
 select *,
